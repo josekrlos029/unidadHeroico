@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var lat, lng;
+var lat, lng, mapa;
 function cargarMapa(){
     $("#mapa").height($(document).height() / 2.5);
     navigator.geolocation.getCurrentPosition(function(position) {
