@@ -20,18 +20,18 @@ and open the template in the editor.
         <script>
 
             
-           //document.addEventListener("deviceready", onDeviceReady, false);
+           document.addEventListener("deviceready", onDeviceReady, false);
 
             function onDeviceReady() {
                 
                 cargarMapa();
                 cargarPanicos();
-              //  initPush();
+                initPush();
             }
     
         </script>
     </head>
-    <body onload="onDeviceReady()">
+    <body onload="">
       <div id="header">
               <table width="100%" height="48px;" border="0"><tr><td width="54px"><button class="imgMenu" onclick="mostrarOcultarMenu();"></button></td>
               <td><div id="title"><img src="Logo.png" width="80%"></div></td><td width="54px"></td></tr></table>   
