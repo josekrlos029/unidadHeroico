@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 var lat, lng, mapa;
+var markersArray = [];
 function cargarMapa(){
     $("#mapa").height($(document).height() / 2.5);
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -27,10 +28,38 @@ function cargarMapa(){
     
 }
 
+function removeMarkers() {
+    if (markersArray) {
+        for (var i in markersArray) {
+            markersArray[i].setMap(null);
+        }
+    }
+}
+
 function ubicar( latU, lngU) {
     alert(lngU);
+    removeMarkers();
+    var myLatlng = new google.maps.LatLng(lat, lng);
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        animation: google.maps.Animation.DROP,
+        map: mapa,
+        title: "Tu ubicacion"
+    });
     
-                //removeMarkers();
+    markersArray.push(marker);
+    var myLatlng2 = new google.maps.LatLng(latU, lngU);
+    var marker = new google.maps.Marker({
+        position: myLatlng2,
+        animation: google.maps.Animation.DROP,
+        map: mapa,
+        title: "Tu ubicacion"
+    });
+    
+    markersArray.push(marker);
+    
+    
+  /*               //removeMarkers();
                 mapa.addMarker({
                     lat: lat,
                     lng: lng,
@@ -41,7 +70,7 @@ function ubicar( latU, lngU) {
                     }
 
                 });
- /*
+
                 mapa.addMarker({
                     lat: latU,
                     lng: lngU,
