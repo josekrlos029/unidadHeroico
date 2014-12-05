@@ -110,7 +110,7 @@ button{
     position: absolute;
     z-index: 1;
     top: 45px;
-    bottom: 48px;
+  
     left: 0;
     width: 100%;
     background:#f1efeb;
@@ -160,8 +160,18 @@ ul{
   color:#c61300;
 }
 li{
-border-bottom: 3px solid #c3c3c3;
 background-color: transparent;
+}
+
+.btn-azul{ 
+width: 100%;
+height: 48px;  
+width: 100%;
+ font-family: 'Oswald', helvetica, arial;
+ color:#FFFFFF;
+    background-color: #009ee8 ;
+  color:#FFFFFF;
+
 }
 .btn{ 
 width: 100%;
