@@ -10,7 +10,7 @@ function cargarMapa(){
         
         lat = position.coords.latitude;
         lng = position.coords.longitude;
-        alert(lat);
+        
         var mapOptions = {
             center: new google.maps.LatLng(lat, lng),
             zoom: 14,
