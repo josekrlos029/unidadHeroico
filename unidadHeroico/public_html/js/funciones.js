@@ -27,13 +27,14 @@ function cargarMapa(){
     
 }
 
-
 function ubicar( latU, lngU) {
+    alert(latU);
+    
                 //removeMarkers();
                 mapa.addMarker({
                     lat: lat,
                     lng: lng,
-                    title: 'Restaurante',
+                    title: 'Tu Ubicacion',
                     animation: google.maps.Animation.DROP,
                     click: function(e) {
 
@@ -101,11 +102,13 @@ function cargarPanicos(){
     }).done(function(msg) {
         
         var json = eval("(" + msg + ")");
-        
+         
         var msj = "<ul>Pendientes";
         for(var i = 0 ; i<json.pendientes.length; i++){
+            var lat =json.pendientes[i].lat;
+            var lng  = json.pendientes[i].lng;
             msj += "<li>"
-                + '<p><button onclick=ubicar("'+json.pendientes[i].lat+'", "'+json.pendientes[i].lng+'")>Ubicar</button></p>'
+                + '<p><button onclick="ubicar('+lat+', '+lng+')">Ubicar</button></p>'
                 +"<h2>"+json.pendientes[i].usuario+"</h2>"
                     + "<p>Tel: "+json.pendientes[i].telefono+"</p>"
                     +' <p><button onclick=aceptar("'+json.pendientes[i].idPanico+'")>Aceptar</button></p></li>';
@@ -142,7 +145,7 @@ function update() {
         url: url,
         data: data
     }).done(function(msg) {
-        alert(msg);
+        
         var json = eval("(" + msg + ")");
         if (json.msj == "exito") {
             //alert("ok");
