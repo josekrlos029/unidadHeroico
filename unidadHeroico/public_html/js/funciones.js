@@ -81,7 +81,7 @@ function aceptar(idPanico){
         var json = eval("(" + msg + ")");
         if (json.msj == "exito") {
             alert("Solicitud Aceptada Correctamente");
-
+            cargarPanicos();
         } else if (json.msj == "no") {
             alert("No se pudo realizar tu solicitud, intenta mas tarde");
         } else {
