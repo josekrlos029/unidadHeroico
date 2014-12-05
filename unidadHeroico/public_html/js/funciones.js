@@ -28,7 +28,7 @@ function cargarMapa(){
 }
 
 function ubicar( latU, lngU) {
-    alert(latU);
+    alert(lngU);
     
                 //removeMarkers();
                 mapa.addMarker({
@@ -41,7 +41,7 @@ function ubicar( latU, lngU) {
                     }
 
                 });
-
+ /*
                 mapa.addMarker({
                     lat: latU,
                     lng: lngU,
@@ -61,7 +61,7 @@ function ubicar( latU, lngU) {
                     strokeOpacity: 0.6,
                     strokeWeight: 6
                 });
-
+*/
             }
 
             
