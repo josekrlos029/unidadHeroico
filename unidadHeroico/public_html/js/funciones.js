@@ -37,7 +37,7 @@ function removeMarkers() {
 }
 
 function ubicar( latU, lngU) {
-    alert(lngU);
+    
     removeMarkers();
     var myLatlng = new google.maps.LatLng(lat, lng);
     var marker = new google.maps.Marker({
@@ -48,6 +48,7 @@ function ubicar( latU, lngU) {
     });
     
     markersArray.push(marker);
+    
     var myLatlng2 = new google.maps.LatLng(latU, lngU);
     var marker = new google.maps.Marker({
         position: myLatlng2,
@@ -58,39 +59,19 @@ function ubicar( latU, lngU) {
     
     markersArray.push(marker);
     
-    
-  /*               //removeMarkers();
-                mapa.addMarker({
-                    lat: lat,
-                    lng: lng,
-                    title: 'Tu Ubicacion',
-                    animation: google.maps.Animation.DROP,
-                    click: function(e) {
+    var flightPlanCoordinates = [
+        myLatlng,
+        myLatlng2
+    ];
+  var flightPath = new google.maps.Polyline({
+    path: flightPlanCoordinates,
+    geodesic: true,
+    strokeColor: '#FF0000',
+    strokeOpacity: 1.0,
+    strokeWeight: 2
+  });
 
-                    }
-
-                });
-
-                mapa.addMarker({
-                    lat: latU,
-                    lng: lngU,
-                    title: 'Usuario',
-                    animation: google.maps.Animation.DROP,
-                    click: function(e) {
-
-                    }
-
-                });
-
-                mapa.drawRoute({
-                    origin: [lat, lng],
-                    destination: [latU, lngU],
-                    travelMode: 'driving',
-                    strokeColor: '#131540',
-                    strokeOpacity: 0.6,
-                    strokeWeight: 6
-                });
-*/
+  flightPath.setMap(mapa);
             }
 
             
