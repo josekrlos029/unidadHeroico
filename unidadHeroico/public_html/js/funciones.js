@@ -3,144 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var lat, lng, mapa;
-var markersArray = [];
-function cargarMapa(){
-    $("#mapa").height($(document).height() / 2.5);
-    navigator.geolocation.getCurrentPosition(function(position) {
-        
-        lat = position.coords.latitude;
-        lng = position.coords.longitude;
-        
-        var mapOptions = {
-            center: new google.maps.LatLng(lat, lng),
-            zoom: 14,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        mapa = new google.maps.Map(document.getElementById("mapa"), mapOptions);
-    
-    }, function() {
-        alert("Error al Obtener la Posición de su dispositivo, intente activar el GPS !");
-        return null;
-    }, {enableHighAccuracy: true});
-
-
-    
-}
-
-function removeMarkers() {
-    if (markersArray) {
-        for (var i in markersArray) {
-            markersArray[i].setMap(null);
-        }
-    }
-}
-
-function ubicar( latU, lngU) {
-    
-    removeMarkers();
-    var myLatlng = new google.maps.LatLng(lat, lng);
-    var marker = new google.maps.Marker({
-        position: myLatlng,
-        animation: google.maps.Animation.DROP,
-        map: mapa,
-        title: "Tu ubicacion"
-    });
-    
-    markersArray.push(marker);
-    
-    var myLatlng2 = new google.maps.LatLng(latU, lngU);
-    var marker = new google.maps.Marker({
-        position: myLatlng2,
-        animation: google.maps.Animation.DROP,
-        map: mapa,
-        title: "Tu ubicacion"
-    });
-    
-    markersArray.push(marker);
-    
-    var flightPlanCoordinates = [
-        myLatlng,
-        myLatlng2
-    ];
-  var flightPath = new google.maps.Polyline({
-    path: flightPlanCoordinates,
-    geodesic: true,
-    strokeColor: '#FF0000',
-    strokeOpacity: 1.0,
-    strokeWeight: 2
-  });
-
-  flightPath.setMap(mapa);
-            }
-
-            
-function aceptar(idPanico){
-    var data = {
-        idPanico: idPanico
-    };
-    
-    var url = "http://heroico.tudomicilio.net/administrador/cambiarEstadoPanico";
-    
-    $.ajax({
-        type: "POST",
-        url: url,
-        data: data
-    }).done(function(msg) {
-        
-        var json = eval("(" + msg + ")");
-        if (json.msj == "exito") {
-            alert("Solicitud Aceptada Correctamente");
-            cargarPanicos();
-        } else if (json.msj == "no") {
-            alert("No se pudo realizar tu solicitud, intenta mas tarde");
-        } else {
-            alert("No se pudo realizar tu solicitud, intenta mas tarde");
-        }
-
-    });
-}
-
-function cargarPanicos(){
-    
-    var url = "http://heroico.tudomicilio.net/administrador/leerPanico";
-    
-    $.ajax({
-        type: "POST",
-        url: url,
-        data: {}
-    }).done(function(msg) {
-        
-        var json = eval("(" + msg + ")");
-         
-        var msj = "<ul>Pendientes";
-        for(var i = 0 ; i<json.pendientes.length; i++){
-            var lat =json.pendientes[i].lat;
-            var lng  = json.pendientes[i].lng;
-            msj += "<li>"
-                + '<p><button onclick="ubicar('+lat+', '+lng+')">Ubicar</button></p>'
-                +"<h2>"+json.pendientes[i].usuario+"</h2>"
-                    + "<p>Tel: "+json.pendientes[i].telefono+"</p>"
-                    +' <p><button onclick=aceptar("'+json.pendientes[i].idPanico+'")>Aceptar</button></p></li>';
-            
-        }
-        msj += "</ul><ul>Aceptados";
-        for(var j = 0 ; j<json.aceptadas.length; j++){
-            var lat =json.aceptadas[i].lat;
-            var lng  = json.aceptadas[i].lng;
-            msj += "<li>"
-            + '<p><button onclick="ubicar('+lat+', '+lng+')">Ubicar</button></p>'
-                    +"<h2>"+json.aceptadas[j].usuario+"</h2>"
-                    + "<p>Tel: "+json.aceptadas[j].telefono+"</p>";
-                   
-            
-        }
-        msj += "</ul>";
-        $("#contenido").html(msj);
-    });
-    
-}
-
 
 function update() {
 
@@ -150,7 +12,7 @@ function update() {
         regId: regid
     };
 
-    var url = "http://heroico.tudomicilio.net/administrador/actualizarUnidad";
+    var url = "http://heroico.tudomicilio.net/administrador/actualizarAdmin";
     
     $.ajax({
         type: "POST",
@@ -170,6 +32,66 @@ function update() {
 
     });
 
+}
+
+function aceptar(idDenuncia){
+    var data = {
+        idDenuncia: idDenuncia
+    };
+
+    var url = "http://heroico.tudomicilio.net/administrador/cambiarEstadoDenuncia";
+    
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data
+    }).done(function(msg) {
+        
+        var json = eval("(" + msg + ")");
+        if (json.msj == "exito") {
+            alert("Denuncia Aceptada Correctamente");
+            cargarDenuncias();
+        } else if (json.msj == "no") {
+            alert("No se pudo realizar tu solicitud, intenta mas tarde");
+        } else {
+            alert("No se pudo realizar tu solicitud, intenta mas tarde");
+        }
+
+    });
+}
+
+function cargarDenuncias(){
+    
+    var url = "http://heroico.tudomicilio.net/administrador/leerDenuncias";
+    
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: {}
+    }).done(function(msg) {
+        
+        var json = eval("(" + msg + ")");
+        
+        var msj = "<ul>Pendientes";
+        for(var i = 0 ; i<json.pendientes.length; i++){
+            msj += "<li><h2>"+json.pendientes[i].usuario+"</h2>"
+                  + "<p>"+json.pendientes[i].descripcion+"</p>"
+                    + "<p>Tel: "+json.pendientes[i].telefono+"</p>"
+                    +' <p><button onclick=aceptar("'+json.pendientes[i].idDenuncia+'")>Aceptar</button></p></li>';
+            
+        }
+        msj += "</ul><ul>Aceptados";
+        for(var j = 0 ; j<json.aceptadas.length; j++){
+            msj += "<li><h2>"+json.aceptadas[j].usuario+"</h2>"
+                  + "<p>"+json.aceptadas[j].descripcion+"</p>"
+                    + "<p>Tel: "+json.aceptadas[j].telefono+"</p>";
+                   
+            
+        }
+        msj += "</ul>";
+        $("#contenido").html(msj);
+    });
+    
 }
 
 var server = "heroico.tudomicilio.net";

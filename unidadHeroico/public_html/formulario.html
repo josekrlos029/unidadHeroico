@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/jquery-1.11.1.min.js"></script>
+        <script src="js/funciones.js"></script>
+         <link rel="stylesheet" href="styles.css">
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBOANqhrn5i6-jYE9XqXyaVClI0NvGLOQw&sensor=true&libraries=geometry"></script>
+         <script src="phonegap.js" type="text/javascript"></script>
+        <script type="text/javascript" charset="utf-8" src="PushNotification.js"></script>  
+          <link href='http://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
+        <script>
+            
+           //document.addEventListener("deviceready", onDeviceReady, false);
+
+            function onDeviceReady() {
+                //initPush();
+                
+                
+            }
+    
+   
+        </script>
+    </head>
+    <body onload="onDeviceReady()">
+        <div id="header">
+              <table width="100%" height="48px;" border="0"><tr><td width="54px"><a href="index.html"><button class="btn-izq" ></button></a></td>
+              <td><div id="title"><img src="Logo.png" width="80%"></div></td><td width="54px"></td></tr></table>   
+         </div>
+         <div id="curva-header"></div>  
+
+          <div id="wrapperP">
+                   <div class="scroller">
+        <div id="contenido" style="margin-top:70px;">
+            <table width="100%" align="center" border="0">
+ <tr>
+        <td align="center">Ingresa la informacion requerida</td>
+  </tr>
+    <tr>
+        <td align="center"><textarea placeholder="Descripcion" class="caja-text"></textarea></td>
+    </tr>
+  
+    <tr>
+        <td align="center"><input type="date" placeholder="fecha" class="caja-text"></td>
+    </tr>
+    <tr>
+        <td align="center"><input type="time" placeholder="time" class="caja-text"></td>
+    </tr>
+    <tr>
+        <td align="center"><input type="lugar" placeholder="Lugar" class="caja-text"></td>
+    </tr>
+   </table>
+        </div>
+           </div>    
+           </div>
+
+
+        <div id="footer" class="naranja">
+            <a href="#"><button class="btn">PUBLICAR</button>
+          </div>
+        </div>
+
+    </body>
+</html>
