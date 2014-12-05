@@ -3,6 +3,128 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+var lat, lng;
+function cargarMapa(){
+    $("#mapa").height($(document).height() / 2.5);
+    navigator.geolocation.getCurrentPosition(function(position) {
+        
+        lat = position.coords.latitude;
+        lng = position.coords.longitude;
+        var mapOptions = {
+            center: new google.maps.LatLng(lat, lng),
+            zoom: 14,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        mapa = new google.maps.Map(document.getElementById("mapa"), mapOptions);
+    
+    }, function() {
+        alert("Error al Obtener la Posición de su dispositivo, intente activar el GPS !");
+        return null;
+    }, {enableHighAccuracy: true});
+
+
+    
+}
+
+
+function ubicar( latU, lngU) {
+                //removeMarkers();
+                mapa.addMarker({
+                    lat: lat,
+                    lng: lng,
+                    title: 'Restaurante',
+                    animation: google.maps.Animation.DROP,
+                    click: function(e) {
+
+                    }
+
+                });
+
+                mapa.addMarker({
+                    lat: latU,
+                    lng: lngU,
+                    title: 'Usuario',
+                    animation: google.maps.Animation.DROP,
+                    click: function(e) {
+
+                    }
+
+                });
+
+                mapa.drawRoute({
+                    origin: [lat, lng],
+                    destination: [latU, lngU],
+                    travelMode: 'driving',
+                    strokeColor: '#131540',
+                    strokeOpacity: 0.6,
+                    strokeWeight: 6
+                });
+
+            }
+
+            
+function aceptar(idPanico){
+    var data = {
+        idPanico: idPanico
+    };
+    
+    var url = "http://heroico.tudomicilio.net/administrador/cambiarEstadoPanico";
+    
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data
+    }).done(function(msg) {
+        
+        var json = eval("(" + msg + ")");
+        if (json.msj == "exito") {
+            alert("Solicitud Aceptada Correctamente");
+
+        } else if (json.msj == "no") {
+            alert("No se pudo realizar tu solicitud, intenta mas tarde");
+        } else {
+            alert("No se pudo realizar tu solicitud, intenta mas tarde");
+        }
+
+    });
+}
+
+function cargarPanicos(){
+    
+    var url = "http://heroico.tudomicilio.net/administrador/leerPanico";
+    
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: {}
+    }).done(function(msg) {
+        
+        var json = eval("(" + msg + ")");
+        
+        var msj = "<ul>Pendientes";
+        for(var i = 0 ; i<json.pendientes.length; i++){
+            msj += "<li>"
+                + '<p><button onclick=ubicar("'+json.pendientes[i].lat+'", "'+json.pendientes[i].lng+'")>Ubicar</button></p>'
+                +"<h2>"+json.pendientes[i].usuario+"</h2>"
+                    + "<p>Tel: "+json.pendientes[i].telefono+"</p>"
+                    +' <p><button onclick=aceptar("'+json.pendientes[i].idPanico+'")>Aceptar</button></p></li>';
+            
+        }
+        msj += "</ul><ul>Aceptados";
+        for(var j = 0 ; j<json.aceptadas.length; j++){
+            msj += "<li>"
+            + '<p><button onclick=ubicar("'+json.aceptadas[i].lat+'", "'+json.aceptadas[i].lng+'")>Ubicar</button></p>'
+                    +"<h2>"+json.aceptadas[j].usuario+"</h2>"
+                    + "<p>Tel: "+json.aceptadas[j].telefono+"</p>";
+                   
+            
+        }
+        msj += "</ul>";
+        $("#contenido").html(msj);
+    });
+    
+}
+
 
 function update() {
 

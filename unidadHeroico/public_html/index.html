@@ -12,17 +12,23 @@ and open the template in the editor.
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/funciones.js"></script>
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBOANqhrn5i6-jYE9XqXyaVClI0NvGLOQw&sensor=true&libraries=geometry"></script>
+        <script src="js/gmaps.js"></script>
         <script src="phonegap.js" type="text/javascript"></script>
-        <script type="text/javascript" charset="utf-8" src="PushNotification.js"></script>   
+        <script type="text/javascript" charset="utf-8" src="PushNotification.js"></script>  
         <script>
-            document.addEventListener("deviceready", onDeviceReady, false);
+            
+           document.addEventListener("deviceready", onDeviceReady, false);
 
             function onDeviceReady() {
+                
+                cargarMapa();
+                cargarDenuncias();
                 initPush();
             }
+    
         </script>
     </head>
     <body>
-        <p>Hola</p>
+        <div id="contenido"></div>
     </body>
 </html>
