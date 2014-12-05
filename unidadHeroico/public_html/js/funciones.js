@@ -116,8 +116,10 @@ function cargarPanicos(){
         }
         msj += "</ul><ul>Aceptados";
         for(var j = 0 ; j<json.aceptadas.length; j++){
+            var lat =json.aceptadas[i].lat;
+            var lng  = json.aceptadas[i].lng;
             msj += "<li>"
-            + '<p><button onclick=ubicar("'+json.aceptadas[i].lat+'", "'+json.aceptadas[i].lng+'")>Ubicar</button></p>'
+            + '<p><button onclick="ubicar('+lat+', '+lng+')">Ubicar</button></p>'
                     +"<h2>"+json.aceptadas[j].usuario+"</h2>"
                     + "<p>Tel: "+json.aceptadas[j].telefono+"</p>";
                    
