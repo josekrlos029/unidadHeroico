@@ -18,10 +18,10 @@ and open the template in the editor.
           <link href='http://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
         <script>
             
-           //document.addEventListener("deviceready", onDeviceReady, false);
+           document.addEventListener("deviceready", onDeviceReady, false);
 
             function onDeviceReady() {
-                //initPush();
+                initPush();
                 
                 cargarDenuncias();
             }
@@ -29,7 +29,7 @@ and open the template in the editor.
    
         </script>
     </head>
-    <body onload="onDeviceReady()">
+    <body onload="">
         <div id="header">
               <table width="100%" height="48px;" border="0"><tr><td width="54px"><button class="imgMenu" onclick="mostrarOcultarMenu();"></button></td>
               <td><div id="title"><img src="Logo.png" width="80%"></div></td><td width="54px"></td></tr></table>   
